@@ -1,6 +1,6 @@
 # Contributing
 
-Thanks for helping improve `opencode-free-9router`.
+Thanks for helping improve `opencode-adapter`.
 
 ## Ground rules
 
@@ -12,8 +12,8 @@ Thanks for helping improve `opencode-free-9router`.
 ## Getting started
 
 ```bash
-git clone https://github.com/0xgetz/opencode-free-9router.git
-cd opencode-free-9router
+git clone https://github.com/Hazz-i/opencode-adapter.git
+cd opencode-adapter
 npm test          # offline, fast
 ```
 

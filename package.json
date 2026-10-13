@@ -1,9 +1,9 @@
 {
-  "name": "opencode-free-9router",
+  "name": "opencode-adapter",
   "version": "1.0.0",
   "private": false,
   "type": "module",
-  "description": "Expose the OpenCode Zen free-tier models as an OpenAI-compatible provider for 9Router. No OpenCode account required.",
+  "description": "Expose the OpenCode Zen free-tier models as an adaptive OpenAI-compatible provider for 9Router. No OpenCode account required.",
   "keywords": [
     "9router",
     "opencode",
@@ -15,14 +15,14 @@
     "llm-gateway"
   ],
   "license": "MIT",
-  "author": "0xgetz",
-  "homepage": "https://github.com/0xgetz/opencode-free-9router#readme",
+  "author": "Hazz-i",
+  "homepage": "https://github.com/Hazz-i/opencode-adapter#readme",
   "repository": {
     "type": "git",
-    "url": "https://github.com/0xgetz/opencode-free-9router.git"
+    "url": "https://github.com/Hazz-i/opencode-adapter.git"
   },
   "bugs": {
-    "url": "https://github.com/0xgetz/opencode-free-9router/issues"
+    "url": "https://github.com/Hazz-i/opencode-adapter/issues"
   },
   "bin": {
     "opencode-free-adapter": "./src/adapter.js",
@@ -38,7 +38,6 @@
   "files": [
     "src",
     "docs",
-    "assets",
     "STRUCTURE.md",
     "README.md",
     "LICENSE"

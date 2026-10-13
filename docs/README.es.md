@@ -1,8 +1,6 @@
 <div align="center">
 
-<img src="../assets/logo.svg" width="128" alt="logo de opencode-free-9router" />
-
-# opencode-free-9router
+# opencode-adapter
 
 **Expón los modelos gratuitos de OpenCode Zen como un único proveedor compatible con OpenAI para 9Router.**
 Sin cuenta de OpenCode, sin API key, sin suscripción — solo un adaptador local.
@@ -15,7 +13,7 @@ Modelos gratis · cliente free-tier atestiguado · compatible con OpenAI · cero
 [![OpenAI Compatible](https://img.shields.io/badge/API-OpenAI--compatible-6ea8fe?style=flat-square)](https://platform.openai.com/docs/api-reference/chat)
 [![9Router](https://img.shields.io/badge/integrates-9Router-8b5cf6?style=flat-square)](https://9router.com)
 [![OpenCode](https://img.shields.io/badge/upstream-opencode.ai-18181b?style=flat-square)](https://opencode.ai)
-[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-ff69b4?style=flat-square)](https://github.com/0xgetz/opencode-free-9router/pulls)
+[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-ff69b4?style=flat-square)](https://github.com/Hazz-i/opencode-adapter/pulls)
 
 [English](../README.md) · [Indonesia](README.id.md) · [Español](README.es.md) · [日本語](README.ja.md) · [中文](README.zh.md)
 
@@ -74,8 +72,8 @@ Ejecuta `node src/cli.js list` para el conjunto actual.
 Requiere **Node.js >= 18**. No hay nada que instalar — cero dependencias.
 
 ```bash
-git clone https://github.com/0xgetz/opencode-free-9router.git
-cd opencode-free-9router
+git clone https://github.com/Hazz-i/opencode-adapter.git
+cd opencode-adapter
 
 # 1. inicia el adaptador (http://127.0.0.1:8790/v1)
 node src/adapter.js
@@ -125,7 +123,7 @@ Todo vive en [`src/opencode_free.js`](../src/opencode_free.js) y está cubierto 
 ## Estructura del proyecto
 
 ```
-opencode-free-9router/
+opencode-adapter/
 ├── src/
 │   ├── opencode_free.js     # atestación, ids, shaping, complete()
 │   ├── adapter.js           # servidor HTTP compatible con OpenAI (:8790/v1)
@@ -133,7 +131,6 @@ opencode-free-9router/
 │   ├── cli.js               # list / ask / check
 │   └── selftest.js          # pruebas offline + --live
 ├── docs/                    # READMEs traducidos
-├── assets/                  # logo + social preview
 └── STRUCTURE.md             # topología, mapa de archivos, diagramas
 ```
 
@@ -173,4 +170,4 @@ tu propio riesgo.
 
 ## Licencia
 
-[MIT](../LICENSE) © 2026 0xgetz
+[MIT](../LICENSE) © 2026 Hazz-i

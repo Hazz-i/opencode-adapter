@@ -1,8 +1,6 @@
 <div align="center">
 
-<img src="../assets/logo.svg" width="128" alt="opencode-free-9router ロゴ" />
-
-# opencode-free-9router
+# opencode-adapter
 
 **OpenCode Zen の無料モデルを、9Router 用の OpenAI 互換プロバイダーとして公開します。**
 OpenCode アカウント・API キー・サブスクリプションは不要 — ローカルアダプターだけ。
@@ -15,7 +13,7 @@ OpenCode アカウント・API キー・サブスクリプションは不要 —
 [![OpenAI Compatible](https://img.shields.io/badge/API-OpenAI--compatible-6ea8fe?style=flat-square)](https://platform.openai.com/docs/api-reference/chat)
 [![9Router](https://img.shields.io/badge/integrates-9Router-8b5cf6?style=flat-square)](https://9router.com)
 [![OpenCode](https://img.shields.io/badge/upstream-opencode.ai-18181b?style=flat-square)](https://opencode.ai)
-[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-ff69b4?style=flat-square)](https://github.com/0xgetz/opencode-free-9router/pulls)
+[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-ff69b4?style=flat-square)](https://github.com/Hazz-i/opencode-adapter/pulls)
 
 [English](../README.md) · [Indonesia](README.id.md) · [Español](README.es.md) · [日本語](README.ja.md) · [中文](README.zh.md)
 
@@ -74,8 +72,8 @@ OpenAI クライアント ──▶ 9Router :20128/v1 ──▶ provider-node "O
 **Node.js >= 18** が必要です。インストールは不要 — 依存ゼロです。
 
 ```bash
-git clone https://github.com/0xgetz/opencode-free-9router.git
-cd opencode-free-9router
+git clone https://github.com/Hazz-i/opencode-adapter.git
+cd opencode-adapter
 
 # 1. アダプターを起動（http://127.0.0.1:8790/v1）
 node src/adapter.js
@@ -125,7 +123,7 @@ curl http://127.0.0.1:8790/v1/chat/completions \
 ## プロジェクト構成
 
 ```
-opencode-free-9router/
+opencode-adapter/
 ├── src/
 │   ├── opencode_free.js     # 認証、ID、整形、complete()
 │   ├── adapter.js           # OpenAI 互換 HTTP サーバー (:8790/v1)
@@ -133,7 +131,6 @@ opencode-free-9router/
 │   ├── cli.js               # list / ask / check
 │   └── selftest.js          # オフライン + --live 検証
 ├── docs/                    # 翻訳 README
-├── assets/                  # ロゴ + ソーシャルプレビュー
 └── STRUCTURE.md             # トポロジー、ファイル構成、図
 ```
 
@@ -172,4 +169,4 @@ npm run test:live     # すべての無料モデルを呼び出し（低速）
 
 ## ライセンス
 
-[MIT](../LICENSE) © 2026 0xgetz
+[MIT](../LICENSE) © 2026 Hazz-i

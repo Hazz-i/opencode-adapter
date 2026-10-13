@@ -1,8 +1,6 @@
 <div align="center">
 
-<img src="../assets/logo.svg" width="128" alt="opencode-free-9router 标志" />
-
-# opencode-free-9router
+# opencode-adapter
 
 **将 OpenCode Zen 免费模型作为 9Router 的一个 OpenAI 兼容提供者对外暴露。**
 无需 OpenCode 账号、无需 API key、无需订阅 —— 只需一个本地适配器。
@@ -15,7 +13,7 @@
 [![OpenAI Compatible](https://img.shields.io/badge/API-OpenAI--compatible-6ea8fe?style=flat-square)](https://platform.openai.com/docs/api-reference/chat)
 [![9Router](https://img.shields.io/badge/integrates-9Router-8b5cf6?style=flat-square)](https://9router.com)
 [![OpenCode](https://img.shields.io/badge/upstream-opencode.ai-18181b?style=flat-square)](https://opencode.ai)
-[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-ff69b4?style=flat-square)](https://github.com/0xgetz/opencode-free-9router/pulls)
+[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-ff69b4?style=flat-square)](https://github.com/Hazz-i/opencode-adapter/pulls)
 
 [English](../README.md) · [Indonesia](README.id.md) · [Español](README.es.md) · [日本語](README.ja.md) · [中文](README.zh.md)
 
@@ -73,8 +71,8 @@ OpenAI 客户端 ──▶ 9Router :20128/v1 ──▶ provider-node "OpenCode F
 需要 **Node.js >= 18**。无需安装任何东西 —— 零依赖。
 
 ```bash
-git clone https://github.com/0xgetz/opencode-free-9router.git
-cd opencode-free-9router
+git clone https://github.com/Hazz-i/opencode-adapter.git
+cd opencode-adapter
 
 # 1. 启动适配器（http://127.0.0.1:8790/v1）
 node src/adapter.js
@@ -123,7 +121,7 @@ curl http://127.0.0.1:8790/v1/chat/completions \
 ## 项目结构
 
 ```
-opencode-free-9router/
+opencode-adapter/
 ├── src/
 │   ├── opencode_free.js     # 认证、id、请求整形、complete()
 │   ├── adapter.js           # OpenAI 兼容 HTTP 服务器 (:8790/v1)
@@ -131,7 +129,6 @@ opencode-free-9router/
 │   ├── cli.js               # list / ask / check
 │   └── selftest.js          # 离线 + --live 检查
 ├── docs/                    # 翻译版 README
-├── assets/                  # logo + 社交预览
 └── STRUCTURE.md             # 拓扑、文件地图、图示
 ```
 
@@ -170,4 +167,4 @@ free tier 有额度限制且会随时变化 —— 请遵守上游服务条款�
 
 ## 许可证
 
-[MIT](../LICENSE) © 2026 0xgetz
+[MIT](../LICENSE) © 2026 Hazz-i

@@ -1,6 +1,6 @@
 # Project structure
 
-`opencode-free-9router` is deliberately tiny and dependency-free: four Node.js modules under
+`opencode-adapter` is deliberately tiny and dependency-free: four Node.js modules under
 `src/`, no `node_modules`, no build step. This document shows how the pieces fit together and
 what each file owns. All diagrams are plain Markdown/text — no images.
 
@@ -13,25 +13,25 @@ provider inside 9Router.
 
 ```
                     ┌──────────────────────────────────────────────────────────┐
-                    │                     YOUR MACHINE                         │
+                    │                     YOUR MACHINE / VPS                   │
                     │                                                          │
    OpenAI client    │   ┌─────────────┐        ┌────────────────────────────┐  │
    (Cursor / Cline  │   │  9Router    │  HTTP  │  adapter.js                │  │
     Claude Code /   ├──▶│ :20128/v1   ├───────▶│  :8790/v1                  │  │
     any SDK)        │   │             │        │                            │  │
                     │   │ provider-   │        │  shapes body + headers,    │  │
-                    │   │ node        │        │  aggregates SSE, re-streams │  │
-                    │   │ "OpenCode   │        └──────────────┬─────────────┘  │
-                    │   │  Free"      │                       │                │
-                    │   └─────────────┘                       │ Bearer public  │
+                    │   │ node        │        │  aggregates SSE, re-streams,│  │
+                    │   │ "OpenCode   │        │  adaptive 30-min auto-sync │  │
+                    │   │  Free"      │        └──────────────┬─────────────┘  │
+                    │   └─────────────┘                       │                │
                     └─────────────────────────────────────────┼────────────────┘
-                                                              │ + attestation
-                                                              ▼
+                                                              │ Bearer public
+                                                              ▼ + attestation
                     ┌──────────────────────────────────────────────────────────┐
                     │               opencode.ai/zen/v1  (upstream)             │
                     │                                                          │
-                    │   POST /chat/completions   → 9 free chat models          │
-                    │   POST /responses          → 2 muse-spark models         │
+                    │   POST /chat/completions   → dynamic chat models         │
+                    │   POST /responses          → dynamic contributor models  │
                     └──────────────────────────────────────────────────────────┘
 ```
 
@@ -40,24 +40,26 @@ provider inside 9Router.
 ## 2. File map
 
 ```
-opencode-free-9router/
+opencode-adapter/
 │
 ├── src/
 │   ├── opencode_free.js      ── core library (no I/O server)
 │   │     • attested id generation (ses_ / msg_)
 │   │     • stable session store
 │   │     • request shaping (chat + responses)
+│   │     • dynamic free models auto-discovery & sync
 │   │     • attested header builder
 │   │     • complete() one-shot call
-│   │     • model catalog constants
+│   │     • model catalog fallback constants
 │   │
 │   ├── adapter.js            ── HTTP server, OpenAI-compatible
-│   │     • GET  /v1/models
+│   │     • GET  /v1/models (adaptive dynamic live models)
 │   │     • POST /v1/chat/completions  (stream + non-stream)
 │   │     • GET  /health
+│   │     • 30-min periodic background sync
 │   │
 │   ├── connect-9router.js    ── registers the provider in 9Router
-│   │     • logs in (optional password)
+│   │     • auto-loads .env
 │   │     • POST provider-node "OpenCode Free"
 │   │
 │   ├── cli.js                ── operator CLI
@@ -72,10 +74,6 @@ opencode-free-9router/
 │   ├── README.es.md          ── Español
 │   ├── README.ja.md          ── 日本語
 │   └── README.zh.md          ── 中文
-│
-├── assets/
-│   ├── logo.svg / logo.png
-│   └── social-preview.svg / social-preview.png
 │
 ├── README.md
 ├── STRUCTURE.md              ── this file
