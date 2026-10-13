@@ -15,8 +15,6 @@ Free models · adaptive live sync · attested free-tier client · OpenAI-compati
 [![OpenCode](https://img.shields.io/badge/upstream-opencode.ai-18181b?style=flat-square)](https://opencode.ai)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-ff69b4?style=flat-square)](https://github.com/Hazz-i/opencode-adapter/pulls)
 
-[English](README.md) · [Indonesia](docs/README.id.md) · [Español](docs/README.es.md) · [日本語](docs/README.ja.md) · [中文](docs/README.zh.md)
-
 </div>
 
 ---
@@ -239,7 +237,6 @@ opencode-adapter/
 │   ├── connect-9router.js   # registers provider in 9Router with .env auto-load
 │   ├── cli.js               # list / ask / check
 │   └── selftest.js          # offline + live checks
-├── docs/                    # translated documentation
 ├── STRUCTURE.md             # topology, file map, data-flow diagrams
 └── package.json
 ```

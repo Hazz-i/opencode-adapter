@@ -37,7 +37,6 @@
   },
   "files": [
     "src",
-    "docs",
     "STRUCTURE.md",
     "README.md",
     "LICENSE"

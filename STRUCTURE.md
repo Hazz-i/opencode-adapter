@@ -69,12 +69,6 @@ opencode-adapter/
 │         • 11 offline assertions
 │         • optional --live probe of every model
 │
-├── docs/
-│   ├── README.id.md          ── Bahasa Indonesia
-│   ├── README.es.md          ── Español
-│   ├── README.ja.md          ── 日本語
-│   └── README.zh.md          ── 中文
-│
 ├── README.md
 ├── STRUCTURE.md              ── this file
 ├── LICENSE                   ── MIT
