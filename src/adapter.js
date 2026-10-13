@@ -194,7 +194,12 @@ function chunkText(text, size) {
   return out;
 }
 
-if (import.meta.url === `file://${process.argv[1]}`) {
+const isEntrypoint =
+  import.meta.url === `file://${process.argv[1]}` ||
+  Boolean(process.env.pm_id) ||
+  process.argv.some((arg) => typeof arg === "string" && arg.endsWith("adapter.js"));
+
+if (isEntrypoint) {
   const server = createServer();
   server.listen(PORT, HOST, async () => {
     console.log(`opencode-free adapter listening on http://${HOST}:${PORT}/v1`);
