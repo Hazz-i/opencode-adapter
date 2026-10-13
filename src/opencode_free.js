@@ -29,13 +29,9 @@ export const ZEN_BASE = "https://opencode.ai/zen/v1";
 export const CHAT_MODELS = [
   "big-pickle",
   "cat-jam-free",
-  "ling-3.1-flash-free",
   "longcat-2.5-preview-free",
-  "mimo-v2.6-flash-free",
-  "nemotron-3-ultra-free",
   "nemotron-3.5-lightning-free",
   "space-bunny-free",
-  "step-5-preview-free",
 ];
 
 /** Models served by the OpenAI Responses API (/responses). */
@@ -44,11 +40,15 @@ export const RESPONSES_MODELS = [
   "muse-spark-1.3-contributor-free",
 ];
 
-/** Models known to the gateway but not currently serving requests. */
+/** Models known to the gateway but not currently serving requests or degraded. */
 export const DEGRADED_MODELS = [
   "exo-free",
   "fledge-alpha-free",
   "ling-3.0-flash-fin-free",
+  "ling-3.1-flash-free",
+  "mimo-v2.6-flash-free",
+  "nemotron-3-ultra-free",
+  "step-5-preview-free",
 ];
 
 /**
@@ -58,6 +58,14 @@ export const DEGRADED_MODELS = [
 export const EXOTIC_MODELS = ["jev-1.13-free"];
 
 export const ALL_MODELS = [...CHAT_MODELS, ...RESPONSES_MODELS, ...DEGRADED_MODELS];
+
+export function getExcludedModels() {
+  const envExcluded = (process.env.EXCLUDE_MODELS || process.env.DEGRADED_MODELS || "")
+    .split(",")
+    .map((s) => s.trim())
+    .filter(Boolean);
+  return new Set([...DEGRADED_MODELS, ...EXOTIC_MODELS, ...envExcluded]);
+}
 
 const BASE62 = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
 const OPENCODE_VERSION = "1.18.31";
@@ -294,19 +302,22 @@ export async function listModels({ fetchImpl = fetch } = {}) {
   return (json.data || []).map((m) => m.id);
 }
 
-let dynamicChatModels = [...CHAT_MODELS];
-let dynamicResponsesModels = [...RESPONSES_MODELS];
+let dynamicChatModels = CHAT_MODELS.filter((id) => !getExcludedModels().has(id));
+let dynamicResponsesModels = RESPONSES_MODELS.filter((id) => !getExcludedModels().has(id));
 let lastSyncTime = 0;
 const SYNC_CACHE_TTL = 30 * 60 * 1000; // 30 minutes
 
 /**
  * Filter free models from a model id list.
  * Any model ending in -free, containing -free, or 'big-pickle',
- * except exotic protocols like 'jev-1.13-free'.
+ * except exotic protocols and degraded models.
  */
 export function filterFreeModels(modelIds = []) {
+  const excluded = getExcludedModels();
   return modelIds.filter(
-    (id) => (id.endsWith("-free") || id.includes("-free") || id === "big-pickle") && id !== "jev-1.13-free"
+    (id) =>
+      (id.endsWith("-free") || id.includes("-free") || id === "big-pickle") &&
+      !excluded.has(id),
   );
 }
 

@@ -102,7 +102,7 @@ await test("endpoint routing: responses vs chat", () => {
 });
 
 await test("working model set is non-empty", () => {
-  assert.ok(workingModels().length >= 8);
+  assert.ok(workingModels().length >= 5);
 });
 
 await test("adapter serves /v1/models and /health", async () => {
@@ -115,7 +115,7 @@ await test("adapter serves /v1/models and /health", async () => {
     assert.equal(health.status, "ok");
     const models = await fetch(`${base}/v1/models`).then((r) => r.json());
     assert.equal(models.object, "list");
-    assert.ok(models.data.length >= 8);
+    assert.ok(models.data.length >= 5);
   } finally {
     server.close();
   }
