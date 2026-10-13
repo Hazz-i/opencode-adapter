@@ -161,6 +161,58 @@ Jika kamu ingin adapter tetap berjalan di laptop lokal sementara 9Router ada di 
 
 ---
 
+## Menjalankan di Background Menggunakan PM2
+
+Agar adapter tetap berjalan terus-menerus di laptop atau VPS tanpa mati saat terminal ditutup atau setelah server reboot, gunakan [PM2](https://pm2.keymetrics.io/):
+
+### 1. Install PM2
+```bash
+npm install -g pm2
+```
+
+### 2. Jalankan Adapter dengan PM2
+```bash
+cd opencode-adapter
+pm2 start src/adapter.js --name opencode-adapter
+```
+*(Adapter akan otomatis membaca file `.env` kamu saat startup).*
+
+### 3. Aktifkan Auto-Start Saat Server Reboot
+Agar service otomatis kembali menyala jika VPS/laptop di-restart:
+```bash
+pm2 startup
+pm2 save
+```
+
+### 4. Perintah Manajemen Harian
+| Kebutuhan | Perintah |
+|---|---|
+| **Lihat log aktivitas** | `pm2 logs opencode-adapter` |
+| **Cek status & pemakaian RAM** | `pm2 status` |
+| **Restart adapter** | `pm2 restart opencode-adapter` |
+| **Stop adapter** | `pm2 stop opencode-adapter` |
+| **Hapus dari daftar PM2** | `pm2 delete opencode-adapter` |
+
+---
+
+## Konfigurasi Variabel Lingkungan (.env)
+
+Kamu dapat menyesuaikan pengaturan adapter dan konektor melalui file `.env`:
+
+| Variabel | Default | Fungsi & Penjelasan |
+|---|---|---|
+| `PORT` | `8790` | Port listen adapter. |
+| `HOST` | `127.0.0.1` | Bind host address (`127.0.0.1` untuk akses lokal saja, `0.0.0.0` jika ingin bisa diakses dari jaringan luar). |
+| `ADAPTER_API_KEY` | `sk-opencode-free` | **Kunci API Keamanan**. Jika diset, setiap pemanggil (termasuk 9Router) wajib menyertakan header `Authorization: Bearer <key>`. Jika dikosongkan, adapter menerima permintaan tanpa autentikasi. |
+| `QUIET` | `0` | **Level Log Terminal**. Set `1` untuk mode senyap (hanya pesan startup, menyembunyikan log error request). Set `0` untuk menampilkan log error di konsol. |
+| `ROUTER_URL` | `http://127.0.0.1:20128` | URL dasar 9Router saat menggunakan script `connect-9router.js`. |
+| `ADAPTER_URL` | `http://127.0.0.1:8790/v1` | URL adapter yang akan didaftarkan ke 9Router. |
+| `PROVIDER_NAME` | `OpenCode Free` | Nama provider yang akan tampil di dashboard 9Router. |
+| `PROVIDER_PREFIX` | `ocfree` | Prefix model di 9Router (model akan berformat `ocfree/<model>`). |
+| `NINEROUTER_CLI_TOKEN` | — | Token device CLI internal 9Router untuk mode raw HTTP. |
+
+---
+
 ## Cara Kerja Fingerprint Gate
 
 Gateway upstream hanya melayani model gratis ke klien resmi OpenCode. Adapter menginjeksikan header & body berikut:

@@ -163,7 +163,55 @@ If you prefer keeping the adapter running on your local computer while 9Router r
 
 ---
 
-## How the Free-Tier Gate Works
+## Running in the Background with PM2
+
+To keep the adapter running continuously on your local PC or VPS server across restarts, use [PM2](https://pm2.keymetrics.io/):
+
+### 1. Install PM2
+```bash
+npm install -g pm2
+```
+
+### 2. Start the Adapter
+```bash
+cd opencode-adapter
+pm2 start src/adapter.js --name opencode-adapter
+```
+*(The adapter automatically reads your `.env` file on startup).*
+
+### 3. Enable Auto-Start on System Boot
+To make PM2 automatically relaunch the adapter after a server reboot:
+```bash
+pm2 startup
+pm2 save
+```
+
+### 4. Useful Management Commands
+| Task | Command |
+|---|---|
+| **View logs** | `pm2 logs opencode-adapter` |
+| **Check status / memory** | `pm2 status` |
+| **Restart adapter** | `pm2 restart opencode-adapter` |
+| **Stop adapter** | `pm2 stop opencode-adapter` |
+| **Delete from PM2** | `pm2 delete opencode-adapter` |
+
+---
+
+## Configuration & Environment Variables
+
+You can configure the adapter and connector via `.env`:
+
+| Variable | Default | Purpose / Meaning |
+|---|---|---|
+| `PORT` | `8790` | Port the adapter listens on. |
+| `HOST` | `127.0.0.1` | Host address to bind (`127.0.0.1` for local only, `0.0.0.0` for all interfaces). |
+| `ADAPTER_API_KEY` | `sk-opencode-free` | **Security API Key**. If set, callers (including 9Router) must pass `Authorization: Bearer <key>`. If empty, requests without a key are accepted. |
+| `QUIET` | `0` | **Log verbosity**. Set to `1` to suppress runtime error logs in console (`[adapter] model -> error`). Set to `0` to log errors. |
+| `ROUTER_URL` | `http://127.0.0.1:20128` | 9Router base URL used by `connect-9router.js`. |
+| `ADAPTER_URL` | `http://127.0.0.1:8790/v1` | Adapter base URL registered into 9Router. |
+| `PROVIDER_NAME` | `OpenCode Free` | Name of the provider displayed in the 9Router dashboard. |
+| `PROVIDER_PREFIX` | `ocfree` | Model prefix in 9Router (models appear as `ocfree/<model>`). |
+| `NINEROUTER_CLI_TOKEN` | — | Fallback CLI device token for 9Router raw HTTP requests. |
 
 The gateway only serves free models to requests matching the official OpenCode client. The adapter automatically injects:
 
